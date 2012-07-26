@@ -25,6 +25,8 @@ ifneq ($(TARGET_ARCH),mips)
 
 include $(CLEAR_VARS)
 
+$(eval $(call set_llvm_targets))
+
 LOCAL_MODULE := libcompiler-rt
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES

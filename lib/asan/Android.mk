@@ -74,6 +74,8 @@ asan_test_cflags := \
 
 include $(CLEAR_VARS)
 
+$(eval $(call set_llvm_targets))
+
 LOCAL_MODULE := libasan
 LOCAL_MODULE_TAGS := optional
 LOCAL_C_INCLUDES := bionic
