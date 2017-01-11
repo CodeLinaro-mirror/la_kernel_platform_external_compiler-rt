@@ -311,9 +311,14 @@ function generate_zygote_wrapper { # from, to, asan_rt
   cat <<EOF >"$TMPDIR/$_from"
 #!/system/bin/sh-from-zygote
 ASAN_OPTIONS=$ASAN_OPTIONS \\
-ASAN_ACTIVATION_OPTIONS=include_if_exists=/data/local/tmp/asan.options.%b \\
-LD_PRELOAD=\$LD_PRELOAD:$_asan_rt \\
-exec $_to \$@
+ASAN_ACTIVATION_OPTIONS=include_if_exists=/data/local/tmp/asan.options.%b
+if [[ ! \$LD_PRELOAD ]]; then
+  LD_PRELOAD=$_asan_rt \\
+  exec $_to \$@
+else
+  LD_PRELOAD=\$LD_PRELOAD:$_asan_rt \\
+  exec $_to \$@
+fi
 
 EOF
 }
